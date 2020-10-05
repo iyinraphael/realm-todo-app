@@ -37,6 +37,9 @@ class ToDoListController: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    items = ToDoItem.all()
+    
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +87,7 @@ extension ToDoListController {
     return true
   }
 
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     guard let item = items?[indexPath.row],
           editingStyle == .delete else { return }
 

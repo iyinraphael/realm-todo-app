@@ -33,13 +33,22 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     SyncManager.shared.logLevel = .off
-
+    
+    initializeRealm()
+    
     return true
   }
 
   private func initializeRealm() {
+    let realm = try! Realm()
+    guard realm.isEmpty else { return }
     
+    try! realm.write {
+      realm.add(ToDoItem("Buy Milk"))
+      realm.add(ToDoItem("Finish Book"))
+      realm.add(ToDoItem("Home schooling for Demi"))
+    }
   }
 }
