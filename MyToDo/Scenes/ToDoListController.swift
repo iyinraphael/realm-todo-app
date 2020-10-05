@@ -32,6 +32,7 @@ import RealmSwift
 class ToDoListController: UITableViewController {
 
   private var items: Results<ToDoItem>?
+  
 
   // MARK: - ViewController life-cycle
 
@@ -55,7 +56,9 @@ class ToDoListController: UITableViewController {
   // MARK: - Actions
 
   @IBAction func addItem() {
-
+    userInputAlert("Add Todo Item") { text in
+      ToDoItem.add(text: text)
+    }
   }
 }
 
@@ -69,7 +72,7 @@ extension ToDoListController {
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ToDoTableViewCell,
           let item = items?[indexPath.row] else {
-        return ToDoTableViewCell(frame: .zero)
+        return ToDoTableViewCell()
     }
 
     cell.configureWith(item) { [weak self] item in

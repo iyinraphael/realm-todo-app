@@ -57,5 +57,13 @@ extension ToDoItem {
       .sorted(byKeyPath: ToDoItem.Property.isCompleted.rawValue)
   }
   
+  @discardableResult
+  static func add(text: String, in realm: Realm = try! Realm()) -> ToDoItem {
+    let item = ToDoItem(text)
+    try! realm.write{
+      realm.add(item)
+    }
+    return item
+  }
 
 }
